@@ -8,25 +8,30 @@
 </head>
 <body>
 <?php
+function connectDataBase(){
     $server = "localhost";
-    $username = "user";
+    $username = "register";
     $password = "123123";
-    $dbname = "18php06";
+    $dbname = "18php06_register";
     $conn = mysqli_connect( $server,$username, $password, $dbname );
-    if($conn -> connect_error) {
-        die("khong ket noi :". $conn -> connect_error);
+    if(!$conn) {
+        die("khong ket noi :". $conn -> connect_error());
     }
     return $conn;
-       if(!$conn){
-           echo "error";
-       }
-       else {
-           echo "thanh cong";
-       }
+}
+function insertUser($name,$username, $password,$country, $gender){
+    $sql = "INSERT INTO 'user' (name, username, password,country, gender)
+    VALUES ('$name','$username', '$password',, '$country' '$gender')";
+    if ($conn->query($sql) === TRUE) {
+        echo "Thanh cong";
+    } else {
+        echo "Error: " . $sql . "<br>" . $conn->error;
+    }
     $conn->close();
-
+}
 ?>
 <?php
+
     $errname = $errusername = $errpassword  = '';
     $name =  $username = $password =$gender=$country = '';
    if(isset($_POST['register'])){
@@ -53,7 +58,7 @@
     }
    }
 ?>
-    <form action="" method ="POST">
+    <form action="#" method ="POST">
         <p>name</p>
         <input type="text" name="name" value="<?php echo $name ?>" >
         <span><?php echo $errname ?> </span>
