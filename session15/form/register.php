@@ -13,21 +13,11 @@ function connectDataBase(){
     $username = "register";
     $password = "123123";
     $dbname = "18php06_register";
-    $conn = mysqli_connect( $server,$username, $password, $dbname );
+    $conn = mysqli_connect( $server, $username, $password, $dbname );
     if(!$conn) {
         die("khong ket noi :". $conn -> connect_error());
     }
     return $conn;
-}
-function insertUser($name,$username, $password,$country, $gender){
-    $sql = "INSERT INTO 'user' (name, username, password,country, gender)
-    VALUES ('$name','$username', '$password',, '$country' '$gender')";
-    if ($conn->query($sql) === TRUE) {
-        echo "Thanh cong";
-    } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
-    }
-    $conn->close();
 }
 ?>
 <?php
@@ -56,7 +46,22 @@ function insertUser($name,$username, $password,$country, $gender){
     if($gender==''){
         $errpassword= 'please input your gender';
     }
-   }
+
+    else {
+        $conn = connectDataBase();
+        $sql = "INSERT INTO user (name, username, password,country, gender)
+    VALUES ('$name','$username', '$password', '$country','$gender')";
+
+        if ($conn->query($sql) === TRUE) {
+        echo "Thanh cong";
+
+    }   else {
+        echo "Error: " . $sql . "<br>" . $conn->error;
+    }
+    $conn->close();
+}
+    }
+
 ?>
     <form action="#" method ="POST">
         <p>name</p>
